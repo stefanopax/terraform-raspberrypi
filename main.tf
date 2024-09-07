@@ -69,8 +69,8 @@ resource "docker_container" "nextcloud" {
   image   = "linuxserver/nextcloud:29.0.5"  
   restart = "unless-stopped"  
   env = [  
-    "PUID=1000",  
-    "PGID=1000",  
+    "PUID=999",  
+    "PGID=990",  
     "TZ=Europe/Zurich"  
   ]  
   ports {  
@@ -99,6 +99,8 @@ resource "docker_container" "nextclouddb" {
   image   = "mariadb:11.5.2"  
   restart = "unless-stopped"  
   env = [  
+    "PUID=999",  
+    "PGID=990",  
     "MYSQL_ROOT_PASSWORD=root",  
     "MYSQL_DATABASE=nextcloud",  
     "MYSQL_USER=nextcloud",  

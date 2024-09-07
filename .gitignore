@@ -1,1 +1,13 @@
-terraform.tfstate
+# Ignore Terraform state and backup files
+*.tfstate
+*.tfstate.backup
+
+# Ignore Terraform directories
+.terraform/
+
+# Ignore editor settings
+.vscode/
+
+# Ignore sensitive files
+*.tfvars
+
