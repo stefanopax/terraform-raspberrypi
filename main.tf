@@ -15,7 +15,7 @@ resource "docker_network" "nextcloud_network" {
 
 resource "docker_container" "plex" {  
   name    = "plex"  # Added name argument  
-  image   = "linuxserver/plex:1.40.5"  
+  image   = "linuxserver/plex:1.41.0"  
   restart = "unless-stopped"  
   env = [  
     "TZ=Europe/Zurich",  
