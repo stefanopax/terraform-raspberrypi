@@ -17,7 +17,7 @@ resource "docker_network" "nextcloud_network" {
 # Plex container
 resource "docker_container" "plex" {
   name    = "plex"
-  image   = "linuxserver/plex:1.41.0"
+  image   = "linuxserver/plex:1.41.3"
   restart = "unless-stopped"
   env = [
     "TZ=Europe/Zurich",
@@ -44,7 +44,7 @@ resource "docker_container" "plex" {
 # qBittorrent container
 resource "docker_container" "qbittorrent" {
   name    = "qbittorrent"
-  image   = "linuxserver/qbittorrent:4.6.6"
+  image   = "linuxserver/qbittorrent:5.0.2"
   restart = "unless-stopped"
   env = [
     "PUID=1003",
@@ -66,7 +66,7 @@ resource "docker_container" "qbittorrent" {
 # Nextcloud container
 resource "docker_container" "nextcloud" {
   name    = "nextcloud"
-  image   = "linuxserver/nextcloud:29.0.5"
+  image   = "linuxserver/nextcloud:30.0.4"
   restart = "unless-stopped"
   env = [
     "PUID=999",
