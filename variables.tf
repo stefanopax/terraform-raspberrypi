@@ -4,7 +4,7 @@
 variable "plex_version" {
   description = "Linuxserver Plex image version"
   type        = string
-  default     = "1.41.4"
+  default     = "1.41.8"
 }
 
 variable "qbittorrent_version" {
@@ -44,4 +44,11 @@ variable "mysql_root_password" {
 variable "mysql_user" {
   description = "The MySQL user"
   type        = string
+}
+
+# K3s
+variable "enable_k3s" {
+  description = "Toggle to enable or disable the K3s cluster"
+  type        = bool
+  default     = false
 }

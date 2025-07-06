@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextcloud
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30090
+  type: NodePort
+  selector:
+    app: nextcloud
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nextcloud
+  template:
+    metadata:
+      labels:
+        app: nextcloud
+    spec:
+      containers:
+        - name: nextcloud
+          image: linuxserver/nextcloud:31.0.0
+          env:
+            - name: PUID
+              value: "999"
+            - name: PGID
+              value: "990"
+            - name: TZ
+              value: "Europe/Zurich"
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nextcloud-data
+              mountPath: /data
+            - name: nextcloud-config
+              mountPath: /config
+            - name: nextcloud-www
+              mountPath: /var/www/html
+      volumes:
+        - name: nextcloud-data
+          hostPath:
+            path: /media/stefanopax/Storage/App/Nextcloud/NextcloudData
+        - name: nextcloud-config
+          hostPath:
+            path: /media/stefanopax/Storage/App/Nextcloud/NextcloudConfig
+        - name: nextcloud-www
+          hostPath:
+            path: /media/stefanopax/Storage/App/Nextcloud
+
