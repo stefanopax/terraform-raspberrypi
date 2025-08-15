@@ -4,7 +4,7 @@
 variable "plex_version" {
   description = "Linuxserver Plex image version"
   type        = string
-  default     = "1.41.8"
+  default     = "1.42.1"
 }
 
 variable "qbittorrent_version" {
