@@ -4,13 +4,13 @@
 variable "plex_version" {
   description = "Linuxserver Plex image version"
   type        = string
-  default     = "1.42.1"
+  default     = "1.42.2"
 }
 
 variable "qbittorrent_version" {
   description = "Linuxserver Qbittorrent image version"
   type        = string
-  default     = "5.0.4"
+  default     = "5.1.4"
 }
 
 variable "nextcloud_version" {
