@@ -5,5 +5,5 @@ output "nextcloud_db_name" {
 }
 
 output "nextcloud_container_name" {
-  value = docker_container.nextcloud.name
+  value = var.enable_nextcloud ? docker_container.nextcloud[0].name : null
 }

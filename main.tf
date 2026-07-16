@@ -9,9 +9,10 @@ terraform {
 
 provider "docker" {}
 
-# Docker network for Nextcloud
+# Docker network for Nextcloud (only created if Nextcloud is enabled)
 resource "docker_network" "nextcloud_network" {
-  name = "nextcloud_network"
+  count  = var.enable_nextcloud ? 1 : 0
+  name   = "nextcloud_network"
 }
 
 # Plex container
@@ -63,11 +64,12 @@ resource "docker_container" "qbittorrent" {
   }
 }
 
-# Nextcloud container
+# Nextcloud container (only created if Nextcloud is enabled)
 resource "docker_container" "nextcloud" {
-  name    = "nextcloud"
-  image   = "linuxserver/nextcloud:${var.nextcloud_version}"
-  restart = "unless-stopped"
+  count    = var.enable_nextcloud ? 1 : 0
+  name     = "nextcloud"
+  image    = "linuxserver/nextcloud:${var.nextcloud_version}"
+  restart  = "unless-stopped"
   env = [
     "PUID=999",
     "PGID=990",
@@ -77,7 +79,7 @@ resource "docker_container" "nextcloud" {
     internal = 80
     external = 9090
   }
-  depends_on = [docker_container.nextclouddb]
+  depends_on = [docker_container.nextclouddb[0]]
 
   volumes {
     host_path      = "/media/stefanopax/Storage/App/Nextcloud/NextcloudData"
@@ -91,14 +93,15 @@ resource "docker_container" "nextcloud" {
     host_path      = "/media/stefanopax/Storage/App/Nextcloud"
     container_path = "/var/www/html"
   }
-  network_mode = docker_network.nextcloud_network.name
+  network_mode = docker_network.nextcloud_network[0].name
 }
 
-# Nextcloud Database container
+# Nextcloud Database container (only created if Nextcloud is enabled)
 resource "docker_container" "nextclouddb" {
-  name    = "nextclouddb"
-  image   = "mariadb:${var.mariadb_version}"
-  restart = "unless-stopped"
+  count    = var.enable_nextcloud ? 1 : 0
+  name     = "nextclouddb"
+  image    = "mariadb:${var.mariadb_version}"
+  restart  = "unless-stopped"
   env = [
     "PUID=999",
     "PGID=990",
@@ -112,5 +115,5 @@ resource "docker_container" "nextclouddb" {
     host_path      = "/media/stefanopax/Storage/App/NextcloudDB"
     container_path = "/var/lib/mysql"
   }
-  network_mode = docker_network.nextcloud_network.name
+  network_mode = docker_network.nextcloud_network[0].name
 }

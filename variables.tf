@@ -4,25 +4,25 @@
 variable "plex_version" {
   description = "Linuxserver Plex image version"
   type        = string
-  default     = "1.42.2"
+  default     = "1.43.2"
 }
 
 variable "qbittorrent_version" {
   description = "Linuxserver Qbittorrent image version"
   type        = string
-  default     = "5.1.4"
+  default     = "5.2.1"
 }
 
 variable "nextcloud_version" {
   description = "Linuxserver Nextcloud image version"
   type        = string
-  default     = "31.0.0"
+  default     = "34.0.0"
 }
 
 variable "mariadb_version" {
   description = "MariaDB image version for Nextcloud DB"
   type        = string
-  default     = "11.7.2"
+  default     = "12.3.2"
 }
 
 # MySQL variables
@@ -49,6 +49,13 @@ variable "mysql_user" {
 # K3s
 variable "enable_k3s" {
   description = "Toggle to enable or disable the K3s cluster"
+  type        = bool
+  default     = false
+}
+
+# Nextcloud
+variable "enable_nextcloud" {
+  description = "Toggle to enable or disable Nextcloud and its database"
   type        = bool
   default     = false
 }
